@@ -2,7 +2,6 @@ package shared.presentation
 
 import arrow.core.Either
 import features.account.domain.dao.AccountDao
-import features.account.domain.entities.Account
 import features.account.domain.value_objects.Password
 import features.account.domain.value_objects.Username
 import features.authentication.domain.repository.AuthenticationRepository
@@ -45,7 +44,7 @@ class AuthenticationCmd {
 		) {
 			var currentAttemps = maxAttemps
 			while (currentAttemps > 0) {
-				val username: Username = UsernameRequest("Please enter your username","Username cant be empty. Please enter a valid username.")
+				val username: Username = usernameRequest("Please enter your username","Username cant be empty. Please enter a valid username.")
 				val password: Password = PasswordRequest()
 
 				when (authenticationRepository.login(username, password)) {
@@ -82,17 +81,3 @@ class AuthenticationCmd {
 	}
 }
 
-fun UsernameRequest(titleMessage: String, errorMessage : String): Username {
-
-	println(titleMessage)
-	var username: Username? = null
-	while (username == null) {
-		val usernameLine = readLine()
-		val usernameCheck = Username.create(usernameLine ?: "")
-		when (usernameCheck) {
-			is Either.Left  -> println(errorMessage)
-			is Either.Right -> username = usernameCheck.value
-		}
-	}
-	return username
-}

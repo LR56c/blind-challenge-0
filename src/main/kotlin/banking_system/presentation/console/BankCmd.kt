@@ -5,9 +5,8 @@ import banking_system.application.Transfer
 import features.account.domain.dao.AccountDao
 import features.account.domain.entities.Account
 import features.account.domain.value_objects.Money
-import features.account.domain.value_objects.Username
 import shared.Context
-import shared.presentation.UsernameRequest
+import shared.presentation.usernameRequest
 
 class BankCmd {
 	companion object {
@@ -66,7 +65,7 @@ class BankCmd {
 		): Account {
 			var account: Account? = null
 			while (account == null) {
-				val usernameCheck = UsernameRequest(
+				val usernameCheck = usernameRequest(
 					"Please enter the account username",
 					"Username cant be empty. Please enter a valid username."
 				)
