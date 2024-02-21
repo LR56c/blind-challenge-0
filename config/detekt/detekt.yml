@@ -1,0 +1,25 @@
+HbmartinRuleSet:
+  AvoidFirstOrLastOnList:
+    active: true
+  AvoidMutableCollections:
+    active: true
+  AvoidVarsExceptWithDelegate:
+    active: true
+    allowedDelegates:
+      - 'remember\w*'
+      - 'mutableState\w*'
+  DontForceCast:
+    active: true
+  MutableTypeShouldBePrivate:
+    active: true
+  NoCallbacksInFunctions:
+    active: true
+    ignoreAnnotated: ['Composable']
+    allowExtensions: true
+    allowReceivers: true
+  NoNotNullOperator:
+    active: true
+  NoVarsInConstructor:
+    active: true
+  WhenBranchSingleLineOrBraces:
+    active: true

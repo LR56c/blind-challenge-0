@@ -1,9 +1,9 @@
-package banking_system.presentation
+package banking_system.presentation.console
 
 import banking_system.di.Dependencies
-import features.account.domain.value_objects.Money
 import shared.Context
 import shared.presentation.AuthenticationCmd
+import shared.runIfAuthenticated
 
 class BankingSystem {
 	companion object {
@@ -19,16 +19,12 @@ class BankingSystem {
 				val input = readLine()
 				when (input) {
 					"1"  -> AuthenticationCmd.run(
+						accountDao = dependencies.accountDao,
 						authenticationRepository = dependencies.authenticationRepository,
 						maxAttemps = 3
 					)
 
-					"2"  -> if (Context.currentAccount == null) {
-						println("Please authenticate first")
-					} else BankCmd.run(
-						accountDao = dependencies.accountDao
-					)
-
+					"2"  -> runIfAuthenticated { BankCmd.run(accountDao = dependencies.accountDao) }
 					"3"  -> {
 						println("Goodbye")
 						exit = true

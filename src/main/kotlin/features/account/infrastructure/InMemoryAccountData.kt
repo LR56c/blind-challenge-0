@@ -13,8 +13,15 @@ class InMemoryAccountData : AccountDao {
 	private val accounts = mutableMapOf<Username, Account>()
 
 	init {
-		val u = Username.create("user1").getOrNull()!!
-		accounts[u] = Account(username = u)
+		println("-----Initializing accounts-----")
+		val u1 = Username.create("user1").getOrNull()!!
+		accounts[u1] = Account(username = u1)
+		val u2 = Username.create("user2").getOrNull()!!
+		accounts[u2] = Account(username = u2)
+	}
+
+	override fun get(): MutableMap<Username, Account> {
+		return accounts
 	}
 
 	override fun getAccount(username: Username): Either<AccountNotFoundException, Account> = either{
@@ -23,7 +30,9 @@ class InMemoryAccountData : AccountDao {
 	}
 
 	override fun saveAccount(account: Account) : Either<AccountNotFoundException, Account> = either {
-		ensure(!accounts.containsKey(account.username)) { AccountNotFoundException() }
+		ensure(accounts.containsKey(account.username)) { AccountNotFoundException() }
+		print("Saving account: $account")
+		accounts[account.username] = account
 		accounts[account.username]!!
 	}
 }

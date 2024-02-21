@@ -12,17 +12,17 @@ class InMemoryAuthData : AuthenticationRepository {
 	private val accounts = mutableMapOf<Username, Password>()
 
 	init {
-		val u = Username.create("user1").getOrNull()!!
-		val p = Password.create("password1").getOrNull()!!
-		accounts[u] = p
+		val u1 = Username.create("user1").getOrNull()!!
+		val p1 = Password.create("password1").getOrNull()!!
+		accounts[u1] = p1
+		val u2 = Username.create("user2").getOrNull()!!
+		val p2 = Password.create("password2").getOrNull()!!
+		accounts[u2] = p2
 	}
 
 	override fun login(
 		username: Username, password: Password
 	): Either<InvalidAuthenticationException, Unit> = either {
-		println("username: $username, password: $password")
-		println("accounts")
-		println(accounts)
 		ensure(accounts.containsKey(username) && accounts[username] == password) { InvalidAuthenticationException() }
 	}
 }
