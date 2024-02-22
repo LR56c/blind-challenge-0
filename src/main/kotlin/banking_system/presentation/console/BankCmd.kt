@@ -6,6 +6,7 @@ import features.account.domain.dao.AccountDao
 import features.account.domain.entities.Account
 import features.account.domain.value_objects.Money
 import shared.Context
+import shared.presentation.moneyRequest
 import shared.presentation.usernameRequest
 
 class BankCmd {
@@ -51,7 +52,7 @@ class BankCmd {
 			account: Account, accountDao: AccountDao
 		) {
 			val otherAccount: Account = accountRequest(account, accountDao)
-			val money: Money = amountRequest()
+			val money: Money = moneyRequest("Amount to transfer")
 			val transfer = Transfer(accountDao)
 			val transferResult = transfer(money, account, otherAccount)
 			println("transferResult: $transferResult")
@@ -82,29 +83,14 @@ class BankCmd {
 			return account
 		}
 
-		private fun amountRequest(): Money {
-			println("Amount to transfer")
-			var money: Money? = null
-			while (money == null) {
-				val amount = readLine()
-				val moneyCheck = Money.create(amount?.toDouble() ?: -1.0)
-				when (moneyCheck) {
-					is Either.Left  -> println("Invalid amount. Please enter a valid amount.")
-					is Either.Right -> money = moneyCheck.value
-				}
-			}
-			return money
-		}
 
 		private fun withdrawAction(account: Account) {
-			println("Amount to withdraw")
-			val money: Money = amountRequest()
+			val money: Money = moneyRequest("Amount to withdraw")
 			account.withdraw(money)
 		}
 
 		private fun depositAction(account: Account) {
-			println("Please enter the amount to deposit")
-			val money: Money = amountRequest()
+			val money: Money = moneyRequest("Please enter the amount to deposit")
 			account.deposit(money)
 		}
 	}
