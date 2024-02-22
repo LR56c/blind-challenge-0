@@ -1,7 +1,7 @@
 package shared.presentation
 
 import arrow.core.Either
-import features.account.domain.value_objects.Username
+import shared.domain.value_objects.Username
 
 fun usernameRequest(titleMessage: String, errorMessage : String): Username {
 

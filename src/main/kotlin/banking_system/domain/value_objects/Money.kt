@@ -1,9 +1,9 @@
-package features.account.domain.value_objects
+package banking_system.domain.value_objects
 
 import arrow.core.Either
 import arrow.core.raise.either
 import arrow.core.raise.ensure
-import features.account.domain.exceptions.InvalidMoneyException
+import banking_system.domain.exceptions.InvalidMoneyException
 
 class Money private constructor(
 	val amount: Double

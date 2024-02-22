@@ -1,7 +1,6 @@
 package banking_system.presentation.console
 
 import banking_system.di.Dependencies
-import shared.Context
 import shared.presentation.AuthenticationCmd
 import shared.runIfAuthenticated
 
@@ -19,12 +18,17 @@ class BankingSystem {
 				val input = readLine()
 				when (input) {
 					"1"  -> AuthenticationCmd.run(
-						accountDao = dependencies.accountDao,
 						authenticationRepository = dependencies.authenticationRepository,
 						maxAttemps = 3
 					)
 
-					"2"  -> runIfAuthenticated { BankCmd.run(accountDao = dependencies.accountDao) }
+					"2"  -> runIfAuthenticated(dependencies.authenticationRepository) {
+						BankCmd.run(
+							accountDao = dependencies.accountDao,
+							authenticationRepository = dependencies.authenticationRepository
+						)
+					}
+
 					"3"  -> {
 						println("Goodbye")
 						exit = true

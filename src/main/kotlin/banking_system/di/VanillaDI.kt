@@ -1,6 +1,6 @@
 package banking_system.di
 
-import features.account.infrastructure.InMemoryAccountData
+import banking_system.infrastructure.InMemoryAccountData
 import features.authentication.infrastructure.InMemoryAuthData
 
 

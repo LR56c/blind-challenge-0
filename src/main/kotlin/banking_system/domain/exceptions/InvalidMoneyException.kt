@@ -1,3 +1,3 @@
-package features.account.domain.exceptions
+package banking_system.domain.exceptions
 
 class InvalidMoneyException: Exception() {}

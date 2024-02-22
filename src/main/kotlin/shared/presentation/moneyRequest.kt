@@ -1,7 +1,7 @@
 package shared.presentation
 
 import arrow.core.Either
-import features.account.domain.value_objects.Money
+import banking_system.domain.value_objects.Money
 
 fun moneyRequest(titleMessage : String): Money {
 	println(titleMessage)

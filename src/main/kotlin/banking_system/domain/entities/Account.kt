@@ -1,11 +1,11 @@
-package features.account.domain.entities
+package banking_system.domain.entities
 
 import arrow.core.Either
 import arrow.core.raise.either
 import arrow.core.raise.ensure
-import features.account.domain.exceptions.InvalidMoneyException
-import features.account.domain.value_objects.Money
-import features.account.domain.value_objects.Username
+import banking_system.domain.exceptions.InvalidMoneyException
+import banking_system.domain.value_objects.Money
+import shared.domain.value_objects.Username
 
 data class Account(
 	private var balance: Double = 2_000.0,

@@ -2,10 +2,11 @@ package banking_system.presentation.console
 
 import arrow.core.Either
 import banking_system.application.Transfer
-import features.account.domain.dao.AccountDao
-import features.account.domain.entities.Account
-import features.account.domain.value_objects.Money
-import shared.Context
+import banking_system.domain.dao.AccountDao
+import banking_system.domain.entities.Account
+import banking_system.domain.value_objects.Money
+import features.authentication.domain.repository.AuthenticationRepository
+import shared.domain.value_objects.Username
 import shared.presentation.moneyRequest
 import shared.presentation.usernameRequest
 
@@ -16,10 +17,27 @@ class BankCmd {
 		  y un state. donde por 'di' se le pasaria dependencias a viewmodel y
 		  este ejecutaria y lo reflejaria en la 'presentacion'
 		 */
-		fun run(accountDao: AccountDao) {
+		fun run(
+			accountDao: AccountDao, authenticationRepository: AuthenticationRepository
+		) {
 			var exit = false
 			while (!exit) {
-				println(accountDao.get())
+				val usernameCheck = Username.create(authenticationRepository.token)
+
+				usernameCheck.onLeft {
+					println("Username incorrect. Please login again")
+					exit = true
+				}
+
+				val accountCheck = accountDao.getAccount(usernameCheck.getOrNull()!!)
+
+				accountCheck.onLeft {
+					println("Account not found. Please enter a valid account.")
+					exit = true
+				}
+
+				val account = accountCheck.getOrNull()!!
+
 				println("Welcome to the Bank")
 				println("Please enter your command")
 				println("1. Deposit")
@@ -28,7 +46,6 @@ class BankCmd {
 				println("4. View Balance")
 				println("5. Return")
 				val input = readLine()
-				val account = Context.currentAccount!!
 				when (input) {
 					"1"  -> depositAction(account)
 					"2"  -> withdrawAction(account)
@@ -60,29 +77,6 @@ class BankCmd {
 				println("Transfer failed")
 			}, { println("Transfer successful") })
 		}
-
-		private fun accountRequest(
-			currentAccount: Account, accountDao: AccountDao
-		): Account {
-			var account: Account? = null
-			while (account == null) {
-				val usernameCheck = usernameRequest(
-					"Please enter the account username",
-					"Username cant be empty. Please enter a valid username."
-				)
-
-				if (currentAccount.username == usernameCheck) {
-					println("You can't transfer to yourself. Please enter a valid account.")
-				} else {
-					when (val accountCheck = accountDao.getAccount(usernameCheck)) {
-						is Either.Left  -> println("Account not found. Please enter a valid account.")
-						is Either.Right -> account = accountCheck.value
-					}
-				}
-			}
-			return account
-		}
-
 
 		private fun withdrawAction(account: Account) {
 			val money: Money = moneyRequest("Amount to withdraw")

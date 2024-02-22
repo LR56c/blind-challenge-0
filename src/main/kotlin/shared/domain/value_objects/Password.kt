@@ -1,9 +1,9 @@
-package features.account.domain.value_objects
+package shared.domain.value_objects
 
 import arrow.core.Either
 import arrow.core.raise.either
 import arrow.core.raise.ensure
-import features.account.domain.exceptions.InvalidPasswordException
+import shared.domain.exceptions.InvalidPasswordException
 
 data class Password private constructor(
 	val value: String

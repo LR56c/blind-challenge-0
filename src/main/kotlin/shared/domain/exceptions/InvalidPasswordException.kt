@@ -1,3 +1,3 @@
-package features.account.domain.exceptions
+package shared.domain.exceptions
 
 class InvalidPasswordException: Exception() {}
