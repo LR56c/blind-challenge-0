@@ -5,7 +5,7 @@ fun confirmRequest(titleMessage: String): Boolean {
 	while (code == null) {
 		println(titleMessage)
 		val input = readLine()
-		code = when (input) {
+		code = when (input?.lowercase()) {
 			"yes" -> true
 			"y"   -> true
 			"no"  -> false

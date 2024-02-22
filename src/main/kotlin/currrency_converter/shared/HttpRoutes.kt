@@ -12,7 +12,7 @@ object HttpRoutes {
 
 val httpClient = HttpClient(CIO){
 	install(Logging) {
-		level = LogLevel.ALL
+		level = LogLevel.NONE
 	}
 	install(ContentNegotiation){
 		json()
