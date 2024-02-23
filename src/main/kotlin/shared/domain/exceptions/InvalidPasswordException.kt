@@ -1,3 +1,3 @@
 package shared.domain.exceptions
 
-class InvalidPasswordException: Exception() {}
+class InvalidPasswordException : Exception() {}

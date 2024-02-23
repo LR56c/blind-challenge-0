@@ -5,10 +5,10 @@ import arrow.core.raise.Raise
 import arrow.core.raise.either
 import arrow.core.raise.ensure
 import arrow.core.raise.ensureNotNull
+import shared.domain.value_objects.Name
 import shared.domain.value_objects.Username
 import university_enrollment.domain.dao.EnrollmentProgramDao
 import university_enrollment.domain.entities.Credential
-import shared.domain.value_objects.Name
 import university_enrollment.domain.entities.Program
 import university_enrollment.domain.exceptions.CampusNotFoundException
 import university_enrollment.domain.exceptions.EnrollmentException

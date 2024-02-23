@@ -10,7 +10,7 @@ data class Money private constructor(
 	val amount: Double
 ) {
 	companion object {
-		fun create(value : String?): Either<InvalidMoneyException, Money> = either {
+		fun create(value: String?): Either<InvalidMoneyException, Money> = either {
 			val amount = value?.toDoubleOrNull()
 			ensureNotNull(amount) { InvalidMoneyException() }
 			ensure(amount > 0) { InvalidMoneyException() }

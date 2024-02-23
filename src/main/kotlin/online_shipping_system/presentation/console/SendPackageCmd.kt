@@ -41,7 +41,8 @@ class SendPackageCmd {
 			}
 
 			println("The amount to pay is: $${money.getOrNull()!!.amount}")
-			val confirmPay = confirmRequest("Do you want to pay this amount? (Yes/No)")
+			val confirmPay =
+				confirmRequest("Do you want to pay this amount? (Yes/No)")
 
 			if (!confirmPay) {
 				println("Returning to main menu")

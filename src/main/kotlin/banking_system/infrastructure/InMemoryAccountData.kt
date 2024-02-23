@@ -3,10 +3,10 @@ package banking_system.infrastructure
 import arrow.core.Either
 import arrow.core.raise.either
 import arrow.core.raise.ensure
-import banking_system.domain.entities.Account
 import banking_system.domain.dao.AccountDao
-import shared.domain.value_objects.Username
+import banking_system.domain.entities.Account
 import banking_system.domain.exceptions.AccountNotFoundException
+import shared.domain.value_objects.Username
 
 class InMemoryAccountData : AccountDao {
 
@@ -19,13 +19,15 @@ class InMemoryAccountData : AccountDao {
 		accounts[u2] = Account(username = u2)
 	}
 
-	override fun getAccount(username: Username): Either<AccountNotFoundException, Account> = either{
-		ensure(accounts.containsKey(username)) { AccountNotFoundException() }
-		accounts[username]!!
-	}
+	override fun getAccount(username: Username): Either<AccountNotFoundException, Account> =
+		either {
+			ensure(accounts.containsKey(username)) { AccountNotFoundException() }
+			accounts[username]!!
+		}
 
-	override fun saveAccount(account: Account) : Either<AccountNotFoundException, Unit> = either {
-		ensure(accounts.containsKey(account.username)) { AccountNotFoundException() }
-		accounts[account.username] = account
-	}
+	override fun saveAccount(account: Account): Either<AccountNotFoundException, Unit> =
+		either {
+			ensure(accounts.containsKey(account.username)) { AccountNotFoundException() }
+			accounts[account.username] = account
+		}
 }

@@ -10,5 +10,6 @@ import university_enrollment.infrastructure.InMemoryEnrollmentProgramData
 fun vanillaDI(): Dependencies = object : Dependencies {
 	override val authenticationRepository = InMemoryAuthData()
 	override val credentialDao: CredentialDao = InMemoryCredentialData()
-	override val enrollmentProgramDao: EnrollmentProgramDao = InMemoryEnrollmentProgramData()
+	override val enrollmentProgramDao: EnrollmentProgramDao =
+		InMemoryEnrollmentProgramData()
 }

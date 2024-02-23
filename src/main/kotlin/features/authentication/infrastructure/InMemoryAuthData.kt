@@ -3,12 +3,13 @@ package features.authentication.infrastructure
 import arrow.core.Either
 import arrow.core.raise.either
 import arrow.core.raise.ensure
-import shared.domain.value_objects.Password
-import shared.domain.value_objects.Username
 import features.authentication.domain.repository.AuthenticationRepository
 import features.authentication.infrastructure.exceptions.InvalidAuthenticationException
+import shared.domain.value_objects.Password
+import shared.domain.value_objects.Username
 
-class InMemoryAuthData(override var token: String = "") : AuthenticationRepository {
+class InMemoryAuthData(override var token: String = "") :
+	AuthenticationRepository {
 	private val accounts = mutableMapOf<Username, Password>()
 
 	init {
@@ -27,7 +28,8 @@ class InMemoryAuthData(override var token: String = "") : AuthenticationReposito
 		token = username.value
 	}
 
-	override fun logout(username: Username): Either<InvalidAuthenticationException, Unit> = either {
-		token = ""
-	}
+	override fun logout(username: Username): Either<InvalidAuthenticationException, Unit> =
+		either {
+			token = ""
+		}
 }

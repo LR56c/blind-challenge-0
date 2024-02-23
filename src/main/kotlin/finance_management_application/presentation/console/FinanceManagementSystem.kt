@@ -30,13 +30,13 @@ class FinanceManagementSystem {
 				println("3. Exit")
 				val input = readLine()
 				when (input) {
-					"1" -> {
+					"1"  -> {
 						val moneyIncome = moneyRequest("Enter your total income: ")
 						dependencies.financeDao.updateIncome(user.username, moneyIncome)
 					}
 
-					"2" -> listExpensesWithCategories(user)
-					"3" -> {
+					"2"  -> listExpensesWithCategories(user)
+					"3"  -> {
 						println("Goodbye")
 						exit = true
 					}

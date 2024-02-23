@@ -3,7 +3,7 @@ package shared.presentation
 import arrow.core.Either
 import banking_system.domain.value_objects.Money
 
-fun moneyRequest(titleMessage : String): Money {
+fun moneyRequest(titleMessage: String): Money {
 	println(titleMessage)
 	var money: Money? = null
 	while (money == null) {

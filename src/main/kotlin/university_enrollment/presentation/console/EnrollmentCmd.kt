@@ -2,11 +2,11 @@ package university_enrollment.presentation.console
 
 import arrow.core.Either
 import features.authentication.domain.repository.AuthenticationRepository
+import shared.domain.value_objects.Name
 import shared.domain.value_objects.Username
 import university_enrollment.domain.dao.CredentialDao
 import university_enrollment.domain.dao.EnrollmentProgramDao
 import university_enrollment.domain.entities.Credential
-import shared.domain.value_objects.Name
 import university_enrollment.domain.exceptions.CampusNotFoundException
 import university_enrollment.domain.exceptions.EnrollmentProgramMaxCapacityException
 import university_enrollment.domain.exceptions.ProgramNotFoundException

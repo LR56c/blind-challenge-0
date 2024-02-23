@@ -1,6 +1,5 @@
 package banking_system.presentation.console
 
-import arrow.core.Either
 import banking_system.application.Transfer
 import banking_system.domain.dao.AccountDao
 import banking_system.domain.entities.Account
@@ -8,7 +7,6 @@ import banking_system.domain.value_objects.Money
 import features.authentication.domain.repository.AuthenticationRepository
 import shared.domain.value_objects.Username
 import shared.presentation.moneyRequest
-import shared.presentation.usernameRequest
 
 class BankCmd {
 	companion object {

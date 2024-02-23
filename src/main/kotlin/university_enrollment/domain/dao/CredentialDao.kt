@@ -6,6 +6,6 @@ import university_enrollment.domain.entities.Credential
 import university_enrollment.domain.exceptions.CredentialNotFoundException
 
 interface CredentialDao {
-		fun getCredential(username: Username): Either<CredentialNotFoundException, Credential>
-		fun saveCredential(credential: Credential): Either<CredentialNotFoundException, Unit>
+	fun getCredential(username: Username): Either<CredentialNotFoundException, Credential>
+	fun saveCredential(credential: Credential): Either<CredentialNotFoundException, Unit>
 }

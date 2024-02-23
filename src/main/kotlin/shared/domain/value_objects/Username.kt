@@ -9,9 +9,10 @@ data class Username private constructor(
 	val value: String
 ) {
 	companion object {
-		fun create(value: String): Either<InvalidUsernameException, Username> = either{
-			ensure(value.isNotEmpty()) { InvalidUsernameException() }
-			Username(value)
-		}
+		fun create(value: String): Either<InvalidUsernameException, Username> =
+			either {
+				ensure(value.isNotEmpty()) { InvalidUsernameException() }
+				Username(value)
+			}
 	}
 }

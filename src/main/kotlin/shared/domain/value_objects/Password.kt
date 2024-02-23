@@ -9,9 +9,10 @@ data class Password private constructor(
 	val value: String
 ) {
 	companion object {
-		fun create(value: String): Either<InvalidPasswordException, Password> = either {
-			ensure(value.isNotEmpty()) { InvalidPasswordException() }
-			Password(value)
-		}
+		fun create(value: String): Either<InvalidPasswordException, Password> =
+			either {
+				ensure(value.isNotEmpty()) { InvalidPasswordException() }
+				Password(value)
+			}
 	}
 }

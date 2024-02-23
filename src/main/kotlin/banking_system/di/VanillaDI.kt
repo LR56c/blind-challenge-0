@@ -5,6 +5,6 @@ import features.authentication.infrastructure.InMemoryAuthData
 
 
 fun vanillaDI(): Dependencies = object : Dependencies {
-		override val accountDao = InMemoryAccountData()
-		override val authenticationRepository = InMemoryAuthData()
+	override val accountDao = InMemoryAccountData()
+	override val authenticationRepository = InMemoryAuthData()
 }

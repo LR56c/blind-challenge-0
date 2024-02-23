@@ -15,8 +15,7 @@ class InMemoryFinanceData : FinanceDao {
 	init {
 		val username1 = Username.create("user1").getOrNull()!!
 		users[username1] = User(
-			username = username1,
-			expenses = mutableMapOf(
+			username = username1, expenses = mutableMapOf(
 				"Medical expenses" to mutableListOf(
 					Money.create("100").getOrNull()!!,
 					Money.create("100").getOrNull()!!,

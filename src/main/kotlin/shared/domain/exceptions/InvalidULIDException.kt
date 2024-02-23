@@ -1,5 +1,5 @@
 package shared.domain.exceptions
 
-class InvalidULIDException : Exception(){
+class InvalidULIDException : Exception() {
 
 }

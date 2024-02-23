@@ -10,18 +10,17 @@ import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 
-class CurrencyExchangeApiData(private val client: HttpClient) : CurrencyRepository {
+class CurrencyExchangeApiData(private val client: HttpClient) :
+	CurrencyRepository {
 	override suspend fun getCurrencyExchange(
-		from: String,
-		to: String
+		from: String, to: String
 	): Either<InvalidCurrencyException, Double> = either {
 		val response = client.get {
 			url(HttpRoutes.CURRENCY_EXCHANGE)
 			parameter("from", from)
 			parameter("to", to)
 			header(
-				"X-RapidAPI-Key",
-				"447800c911msha0ff3254fa4c25cp1da8f3jsn6fb0775a4187"
+				"X-RapidAPI-Key", "447800c911msha0ff3254fa4c25cp1da8f3jsn6fb0775a4187"
 			)
 			header("X-RapidAPI-Host", "currency-exchange.p.rapidapi.com")
 		}.bodyAsText()

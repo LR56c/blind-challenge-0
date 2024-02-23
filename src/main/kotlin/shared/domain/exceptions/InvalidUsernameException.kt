@@ -1,3 +1,3 @@
 package shared.domain.exceptions
 
-class InvalidUsernameException: Exception() {}
+class InvalidUsernameException : Exception() {}
