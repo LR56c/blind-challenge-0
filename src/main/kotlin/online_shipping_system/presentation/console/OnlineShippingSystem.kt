@@ -3,6 +3,7 @@ package online_shipping_system.presentation.console
 import online_shipping_system.di.Dependencies
 import shared.presentation.AuthenticationCmd
 import shared.runIfAuthenticated
+import ulid.ULID
 
 class OnlineShippingSystem {
 	companion object {

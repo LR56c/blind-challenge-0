@@ -3,7 +3,7 @@ package university_enrollment.domain.dao
 import arrow.core.Either
 import shared.domain.value_objects.Username
 import university_enrollment.domain.entities.Credential
-import university_enrollment.domain.entities.Name
+import shared.domain.value_objects.Name
 import university_enrollment.domain.exceptions.EnrollmentException
 
 interface EnrollmentProgramDao {

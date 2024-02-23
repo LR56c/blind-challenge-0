@@ -1,14 +1,24 @@
 package university_enrollment.presentation.console
 
 import arrow.core.Either
-import university_enrollment.domain.entities.Name
+import shared.domain.value_objects.Name
 
-fun nameRequest(titleMessage: String, errorMessage : String): Name {
+fun nameRequest(titleMessage: String, errorMessage : String, default : String? = null): Name {
 
-	println(titleMessage)
+	val defaultText = if (default != null) "(default: $default)" else ""
+	println("$titleMessage $defaultText")
 	var name: Name? = null
+
 	while (name == null) {
 		val nameLine = readLine()
+
+		if (nameLine == null && default != null) {
+			when (val nameCheck = Name.create(default)) {
+				is Either.Left  -> {}
+				is Either.Right -> name = nameCheck.value
+			}
+		}
+
 		val nameCheck = Name.create(nameLine ?: "")
 		when (nameCheck) {
 			is Either.Left  -> println(errorMessage)

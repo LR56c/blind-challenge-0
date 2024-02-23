@@ -1,9 +1,9 @@
-package university_enrollment.domain.entities
+package shared.domain.value_objects
 
 import arrow.core.Either
 import arrow.core.raise.either
 import arrow.core.raise.ensure
-import university_enrollment.domain.exceptions.InvalidNameException
+import shared.domain.exceptions.InvalidNameException
 
 data class Name private constructor(val value : String){
 	companion object {

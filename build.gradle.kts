@@ -24,6 +24,7 @@ dependencies {
 	implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
 	implementation("io.ktor:ktor-client-logging:$ktor_version")
 	implementation("ch.qos.logback:logback-classic:1.2.3")
+	implementation("com.aallam.ulid:ulid-kotlin:1.3.0")
 }
 
 detekt {

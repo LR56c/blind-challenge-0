@@ -6,7 +6,7 @@ import shared.domain.value_objects.Username
 import university_enrollment.domain.dao.CredentialDao
 import university_enrollment.domain.dao.EnrollmentProgramDao
 import university_enrollment.domain.entities.Credential
-import university_enrollment.domain.entities.Name
+import shared.domain.value_objects.Name
 import university_enrollment.domain.exceptions.CampusNotFoundException
 import university_enrollment.domain.exceptions.EnrollmentProgramMaxCapacityException
 import university_enrollment.domain.exceptions.ProgramNotFoundException
