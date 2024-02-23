@@ -3,7 +3,9 @@ package university_enrollment.presentation.console
 import arrow.core.Either
 import shared.domain.value_objects.Name
 
-fun nameRequest(titleMessage: String, errorMessage : String, default : String? = null): Name {
+fun nameRequest(
+	titleMessage: String, errorMessage: String, default: String? = null
+): Name {
 
 	val defaultText = if (default != null) "(default: $default)" else ""
 	println("$titleMessage $defaultText")
@@ -11,18 +13,17 @@ fun nameRequest(titleMessage: String, errorMessage : String, default : String? =
 
 	while (name == null) {
 		val nameLine = readLine()
-
-		if (nameLine == null && default != null) {
+		if (default != null) {
 			when (val nameCheck = Name.create(default)) {
 				is Either.Left  -> {}
 				is Either.Right -> name = nameCheck.value
 			}
-		}
-
-		val nameCheck = Name.create(nameLine ?: "")
-		when (nameCheck) {
-			is Either.Left  -> println(errorMessage)
-			is Either.Right -> name = nameCheck.value
+		} else {
+			val nameCheck = Name.create(nameLine ?: "")
+			when (nameCheck) {
+				is Either.Left  -> println(errorMessage)
+				is Either.Right -> name = nameCheck.value
+			}
 		}
 	}
 	return name

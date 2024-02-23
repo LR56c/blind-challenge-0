@@ -32,17 +32,15 @@ class SendPackageCmd {
 
 			val weight = moneyRequest("Enter the weight of the package:")
 
-			//TODO: deberia pedirse a servicio el calculo, suponiendo tarifas variantes. aunque igual usariamos una base de datos en memoria.
-			// tambien se podria agregar para simular que sea una aplicacion de una persona que solo pesa el paquete. que el mismo servicio envie
-			// la mayoria de los datos y mande cantidades de paquetes aleatorias.
-			val money = Money.create(2 * weight.amount)
+			// podria hacerlo un servicio. extra: que vengan los datos y solo marcar peso
+			val money = Money.create((2 * weight.amount).toString())
 
 			money.onLeft {
 				println("Invalid amount. Please enter a valid amount. Try again.")
 				return true
 			}
 
-			println("The amount to pay is: $${money.getOrNull()!!}")
+			println("The amount to pay is: $${money.getOrNull()!!.amount}")
 			val confirmPay = confirmRequest("Do you want to pay this amount? (Yes/No)")
 
 			if (!confirmPay) {

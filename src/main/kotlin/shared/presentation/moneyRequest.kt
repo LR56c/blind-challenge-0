@@ -8,7 +8,7 @@ fun moneyRequest(titleMessage : String): Money {
 	var money: Money? = null
 	while (money == null) {
 		val amount = readLine()
-		val moneyCheck = Money.create(amount?.toDouble() ?: -1.0)
+		val moneyCheck = Money.create(amount)
 		when (moneyCheck) {
 			is Either.Left  -> println("Invalid amount. Please enter a valid amount.")
 			is Either.Right -> money = moneyCheck.value

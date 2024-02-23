@@ -4,7 +4,7 @@ import arrow.core.Either
 import arrow.core.raise.either
 import shared.domain.exceptions.InvalidULIDException
 
-class ULID private constructor(val value: String) {
+data class ULID private constructor(val value: String) {
 	companion object {
 		fun create(): ULID = ULID(ulid.ULID.randomULID())
 		fun from(value: String): Either<InvalidULIDException, ULID> = either {

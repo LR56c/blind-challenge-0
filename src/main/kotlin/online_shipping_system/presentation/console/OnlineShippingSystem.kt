@@ -1,15 +1,15 @@
 package online_shipping_system.presentation.console
 
 import online_shipping_system.di.Dependencies
-import shared.presentation.AuthenticationCmd
+import shared.presentation.AuthenticationLoginCmd
 import shared.runIfAuthenticated
-import ulid.ULID
 
 class OnlineShippingSystem {
 	companion object {
 		fun run(dependencies: Dependencies) {
 			var exit = false
-			val lock = !AuthenticationCmd.run(
+			println("Please enter your credentials")
+			val lock = !AuthenticationLoginCmd.run(
 				authenticationRepository = dependencies.authenticationRepository,
 				maxAttemps = 3
 			)
