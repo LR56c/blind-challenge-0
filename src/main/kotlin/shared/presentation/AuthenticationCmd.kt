@@ -8,8 +8,8 @@ import features.authentication.domain.repository.AuthenticationRepository
 class AuthenticationCmd {
 	companion object {
 		fun run(
-			onAuthSuccess : (Username) -> Unit = {},
-			onAuthLogout : () -> Unit = {},
+			onAuthSuccess: (Username) -> Unit = {},
+			onAuthLogout: () -> Unit = {},
 			authenticationRepository: AuthenticationRepository,
 			maxAttemps: Int = 1
 		): Boolean {
@@ -22,12 +22,28 @@ class AuthenticationCmd {
 				println("3. Return")
 				val input = readLine()
 				when (input) {
-					"1"  -> return loginAction(onAuthSuccess, authenticationRepository, maxAttemps)
-					"2"  -> {
-						onAuthLogout()
-						exit = true
-					}
+					// se podria hacer que si el login es exitoso, no haga nada para mantener el menu auth, si es que se lo desea. ya que ahora se hace return para 'acceso rapido'
+					"1"  -> return loginAction(
+						onAuthSuccess,
+						authenticationRepository,
+						maxAttemps
+					)
 
+					"2"  -> {
+							when (val username = Username.create(authenticationRepository.token)) {
+								is Either.Left  -> println("You are not logged in.")
+								is Either.Right -> {
+									onAuthLogout()
+
+									val result =
+										authenticationRepository.logout(username.getOrNull()!!)
+									when (result) {
+										is Either.Left  -> println("Logout failed. Try again later.")
+										is Either.Right -> println("Logout successful.")
+									}
+								}
+							}
+					}
 					"3"  -> {
 						exit = true
 					}
@@ -35,11 +51,11 @@ class AuthenticationCmd {
 					else -> println("Invalid command")
 				}
 			}
-			return false
+			return true
 		}
 
 		private fun loginAction(
-			onAuthSuccess : (Username) -> Unit,
+			onAuthSuccess: (Username) -> Unit,
 			authenticationRepository: AuthenticationRepository,
 			maxAttemps: Int
 		): Boolean {
@@ -69,7 +85,6 @@ class AuthenticationCmd {
 			}
 			return false
 		}
-
 	}
 }
 

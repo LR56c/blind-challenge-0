@@ -24,11 +24,14 @@ class UniversityEnrollmentSystem {
 						)
 					}
 
-					"2"  -> runIfAuthenticated(dependencies.authenticationRepository) { EnrollmentCmd.run(
-						credentialDao = dependencies.credentialDao,
-						enrollmentProgramDao = dependencies.enrollmentProgramDao,
-						authenticationRepository = dependencies.authenticationRepository
-					) }
+					"2"  -> runIfAuthenticated(dependencies.authenticationRepository) {
+						EnrollmentCmd.run(
+							credentialDao = dependencies.credentialDao,
+							enrollmentProgramDao = dependencies.enrollmentProgramDao,
+							authenticationRepository = dependencies.authenticationRepository
+						)
+					}
+
 					"3"  -> {
 						println("Goodbye")
 						exit = true

@@ -1,3 +1,5 @@
 package university_enrollment.domain.exceptions
 
-class EnrollmentProgramMaxCapacityException: Exception() {}
+class EnrollmentProgramMaxCapacityException:EnrollmentException() {
+
+}

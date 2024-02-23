@@ -4,7 +4,6 @@ import arrow.core.Either
 import shared.domain.value_objects.Username
 
 fun usernameRequest(titleMessage: String, errorMessage : String): Username {
-
 	println(titleMessage)
 	var username: Username? = null
 	while (username == null) {

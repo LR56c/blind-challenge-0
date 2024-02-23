@@ -6,45 +6,70 @@ import shared.domain.value_objects.Username
 import university_enrollment.domain.dao.CredentialDao
 import university_enrollment.domain.dao.EnrollmentProgramDao
 import university_enrollment.domain.entities.Credential
+import university_enrollment.domain.entities.Name
+import university_enrollment.domain.exceptions.CampusNotFoundException
+import university_enrollment.domain.exceptions.EnrollmentProgramMaxCapacityException
+import university_enrollment.domain.exceptions.ProgramNotFoundException
 
 class EnrollmentCmd {
-	companion object {    /*
- 		The user must input their first name, last name, and chosen program.
- 		Upon logging in, a menu displays the available programs: Computer Science, Medicine, Marketing, and Arts.
-
- 		Each program has only 5 available slots. The system will store the data of each registered user, and if it exceeds the limit,
- 		 it should display a message indicating the program is unavailable.
-
- 		The user must choose a campus from three cities: London, Manchester, Liverpool.
- 		In London, there is 1 slot per program; in Manchester, there are 3 slots per program, and in Liverpool, there is 1 slot per program.
- 		If the user selects a program at a campus that has no available slots, the system should display the option to enroll in the program at another campus.
-		 */
-
-		/*
-			- programRequest
-			- campusRequest
-			- program dao
-				- map campus-program
-		 */
+	companion object {
 		fun run(
 			credentialDao: CredentialDao,
 			enrollmentProgramDao: EnrollmentProgramDao,
 			authenticationRepository: AuthenticationRepository
 		) {
-			var exit = false
-			while (!exit) {
-				println("Welcome to the University Enrollment System")
-				val credential =
-					credentialsCheck(authenticationRepository, credentialDao)
-				if (credential == null) {
-					println("Credentials failed. Please try again.")
-					exit = true
+			println("Welcome to the University Enrollment System")
+			val credential = credentialsCheck(authenticationRepository, credentialDao)
+			if (credential == null) {
+				println("Credentials failed. Please try again.")
+				return
+			}
+			//aunque me gustaria mostrar los programas de cada campus, el requisito solo menciona mostrarlos, por lo que tendria que hacer un program flatmap de todos los campus
+			val availablePrograms = enrollmentProgramDao.getFlatMapPrograms()
+			println("Available programs: ${availablePrograms.joinToString(", ") { it.value }}")
+
+			val programName = checkNameInSet_Request(
+				"Please enter the program name you want to enroll in",
+				"Invalid program name. Try again",
+				availablePrograms
+			)
+
+			val availableCampus = enrollmentProgramDao.getFlatMapCampus()
+			println("Available campuses: ${availableCampus.joinToString(", ") { it.value }}")
+
+			val campusName = checkNameInSet_Request(
+				"Please enter the campus name you want to enroll in",
+				"Invalid campus name. Try again",
+				availableCampus
+			)
+
+			val result = enrollmentProgramDao.insertStudentInProgram(
+				credential, campusName, programName
+			)
+			when (result) {
+				is Either.Left  -> when (result.value) {
+					is CampusNotFoundException               -> println("Campus not found. Try again.")
+					is EnrollmentProgramMaxCapacityException -> println("Program at max capacity. Try another campus.")
+					is ProgramNotFoundException              -> println("Program not found. Try again.")
 				}
 
-				println("Available programs: Computer Science, Medicine, Marketing, and Arts")
-				//TODO: aunque me gustaria mostrar los programas de cada campus, el requisito solo menciona mostrarlos, por lo que tendria que hacer un program flatmap de todos los campus
-			//				val program = programRequest("Enter your chosen program", "Invalid program")
+				is Either.Right -> println("Enrollment successful")
 			}
+		}
+
+		private fun checkNameInSet_Request(
+			titleMessage: String, errorMessage: String, availablePrograms: Set<Name>
+		): Name {
+			var name: Name? = null
+			while (name == null) {
+				val nameToCheck = nameRequest(titleMessage, errorMessage)
+				if (availablePrograms.contains(nameToCheck)) {
+					name = nameToCheck
+				} else {
+					println("Program not found. Please enter a valid program.")
+				}
+			}
+			return name
 		}
 
 		private fun credentialsCheck(
